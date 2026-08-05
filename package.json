@@ -1,7 +1,7 @@
 {
   "name": "vite-react-typescript-starter",
-  "$comment": "Use : https://jauregiazcue.github.io/mazeGenerator/ or http://kaijauregi.com/ ",
-  "homepage": "http://kaijauregi.com/mazeGenerator/",
+  "$comment": "Use : https://jauregiazcue.github.io/mazeGenerator/ or http://maze.kaijauregi.com/ ",
+  "homepage": "http://maze.kaijauregi.com/",
   "private": false,
   "version": "0.0.0",
   "type": "module",
