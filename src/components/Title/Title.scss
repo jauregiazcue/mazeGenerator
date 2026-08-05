@@ -1,0 +1,26 @@
+@use "@style/vars.scss" as *;
+
+.title {
+  text-align: center;
+  padding: $measure * 8;
+
+  background-color: getColor(e, "light");
+
+  body.dark-mode & {
+    background-color: getColor(b, "dark");
+    color: getColor(a, "dark");
+  }
+}
+
+.title-a {
+  text-align: center;
+  padding: $measure * 8;
+  background-color: getColor(e,"light");
+  //background-image: linear-gradient(to bottom, black 0%,getColor(e, "light") 50%);
+  
+
+  body.dark-mode & {
+    background-color: getColor(b, "dark");
+    color: getColor(a, "dark");
+  }
+}
