@@ -34,17 +34,14 @@ export interface Grid {
 
 class Maze {
   constructor() {
-    this.width = 10;
-    this.height = 10;
+    this.size = 10;
   }
 
-  init(cols?: number, rows?: number) {
-    if (!cols) cols = this.height;
-    if (!rows) rows = this.width;
+  init(size?: number) {
+    if (!size) size = this.size;
 
-    cols = cols <= 0 ? 10 : cols;
-    rows = rows <= 0 ? 10 : rows;
-    this.maze = aldousBroderMaze(rows, cols);
+    size = size <= 0 ? 10 : size;
+    this.maze = aldousBroderMaze(size, size);
   }
 
   firstDraw(ctx: CanvasRenderingContext2D) {
@@ -54,7 +51,7 @@ class Maze {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = "#FFA72B";
-    ctx.font = "48px Alexandria Variable";
+    ctx.font = "32px Alexandria Variable";
     ctx.fillText("Click Generate",
       (width / 2) - ctx.measureText("Click Generate").width / 2, height / 2);
   }
@@ -66,7 +63,7 @@ class Maze {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = "red";
-    ctx.font = "48px Alexandria Variable";
+    ctx.font = "24px Alexandria Variable";
     
     ctx.fillText('WIDTH AND HEIGHT',
       (width / 2) - ctx.measureText("WIDTH AND HEIGHT").width / 2,( height / 2.25));
@@ -112,15 +109,12 @@ class Maze {
     return Math.floor(Math.random() * max);
   }
 
-  handleWidthInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.width = Number(event.target.value);
-  }
-  handleHeightInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.height = Number(event.target.value);
+  handleSizeInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.size = Number(event.target.value);
   }
 
-  width: number = 10;
-  height: number = 10;
+
+  size: number = 10;
 
   maze: number[][] = [];
 }

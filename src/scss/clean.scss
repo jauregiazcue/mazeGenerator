@@ -153,6 +153,7 @@ html {
   scroll-behavior: smooth;
 }
 
+
 .fa-brands {
   font-size: xx-large;
 
@@ -167,4 +168,8 @@ html {
   body.dark-mode & {
     color: getColor(a, "dark");
   }
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
 }

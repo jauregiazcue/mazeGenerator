@@ -88,20 +88,6 @@ $color-options-dark: (
 $type-a: 'Arial', sans-serif;
 $type-b: 'Alexandria Variable', sans-serif;
 
-//font-family: 'Alexandria Variable', sans-serif;
-
-// * LAYOUT
-$viewport-type: max-width;
-$columns: 12;
-$gutter-width: 32px;
-$half-gutter-width: $gutter-width * 0.5;
-$gutter-compensation: -1 * $half-gutter-width;
-
-// * Container
-$g-container-fluid-max-width: 2000px;
-$g-container-max-width: 1300px;
-$g-container-width: 90%;
-$g-container-width-mobile: 95%;
 
 // * breakpoints
 $all: 0;
