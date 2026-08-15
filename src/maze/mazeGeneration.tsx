@@ -41,6 +41,7 @@ class Maze {
     if (!size) size = this.size;
 
     size = size <= 0 ? 10 : size;
+
     this.maze = aldousBroderMaze(size, size);
   }
 
@@ -64,15 +65,15 @@ class Maze {
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = "red";
     ctx.font = "24px Alexandria Variable";
-    
-    ctx.fillText('WIDTH AND HEIGHT',
-      (width / 2) - ctx.measureText("WIDTH AND HEIGHT").width / 2,( height / 2.25));
-      
-      ctx.fillText('MUST BE BIGGER',
-      (width / 2) - ctx.measureText("MUST BE BIGGER").width / 2 ,( height / 2.25) + 50);
 
-      ctx.fillText('OR EQUAL TO 10',
-      (width / 2) - ctx.measureText("OR EQUAL TO 10").width / 2 ,( height / 2.25) + 100);
+    ctx.fillText('WIDTH AND HEIGHT',
+      (width / 2) - ctx.measureText("WIDTH AND HEIGHT").width / 2, (height / 2.25));
+
+    ctx.fillText('MUST BE BIGGER',
+      (width / 2) - ctx.measureText("MUST BE BIGGER").width / 2, (height / 2.25) + 50);
+
+    ctx.fillText('OR EQUAL TO 10',
+      (width / 2) - ctx.measureText("OR EQUAL TO 10").width / 2, (height / 2.25) + 100);
   }
 
 
@@ -86,21 +87,41 @@ class Maze {
 
     if (this.maze.length <= 0) return;
 
-    const rectWidth = (width / this.maze[0].length);
-    const rectHeight = (height / this.maze.length);
+    //const actualSize = this.size % 2 == 0 ? this.size + 1 : this.size;
+    const rectangleSize = 11;
+    const rectWidth = (width / rectangleSize);
+    const rectHeight = (width / rectangleSize);
 
-    ctx.fillStyle = "white";
-    for (let i = 0; i < this.maze.length; i++) {
-      for (let j = 0; j < this.maze[i].length; j++) {
-        if (this.maze[i][j]) {
-          ctx.fillRect(rectWidth * j, rectHeight * i,
+    ctx.fillStyle = "#cac8b9";
+
+    const startX = rectangleSize * (this.stepX);
+    const startY = rectangleSize * (this.stepY);
+    let endX = rectangleSize * (this.stepX + 1);
+    if (endX >= this.maze.length) endX = this.maze.length;
+    let endY = rectangleSize * (this.stepY + 1);
+    if (endY >= this.maze.length) endY = this.maze.length;
+
+    console.log("X Start: " + startX + " X End: " + endX);
+    console.log("Y Start: " + startY + " Y End: " + endY);
+
+    let fakeX = 0;
+    let fakeY = 0;
+    for (let y = startY; y < endY; y++) {
+      for (let x = startX; x < endX; x++) {
+        if (y > this.maze.length) return;
+        if (x > this.maze[y].length) return;
+        if (this.maze[y][x]) {
+          ctx.fillRect(rectWidth * fakeY, rectHeight * fakeX,
             rectWidth, rectHeight);
         }
         else {
-          ctx.clearRect(rectWidth * j, rectHeight * i,
+          ctx.clearRect(rectWidth * fakeY, rectHeight * fakeX,
             rectWidth, rectHeight);
         }
+        fakeY++;
       }
+      fakeX++;
+      fakeY = 0;
     }
   }
 
@@ -113,9 +134,21 @@ class Maze {
     this.size = Number(event.target.value);
   }
 
+  handleStepXInputChange(add: number, ctx: CanvasRenderingContext2D) {
+    this.stepX += add;
+    if (this.stepX < 0) this.stepX = 0;
+    this.draw(ctx);
+  }
 
+  handleStepYInputChange(add: number, ctx: CanvasRenderingContext2D) {
+    this.stepY += add;
+    if (this.stepY < 0) this.stepY = 0;
+    this.draw(ctx);
+  }
+
+  stepX: number = 0;
+  stepY: number = 0;
   size: number = 10;
-
   maze: number[][] = [];
 }
 

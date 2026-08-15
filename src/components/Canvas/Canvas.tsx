@@ -20,7 +20,11 @@ function Canvas(props: CanvasPayload) {
   });
 
 
-  return <canvas ref={ref} width={width} height={height} />;
+
+
+  return <div>
+    <canvas ref={ref} width={width} height={height} />
+  </div>;
 }
 
 export default Canvas;

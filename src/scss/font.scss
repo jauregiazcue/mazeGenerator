@@ -36,6 +36,10 @@ h3 {
    @include title($size : 1.5rem, $color : b,  $type : $type-b);
 }
 
+h4 {
+   @include title($size : 1.25rem, $color : b,  $type : $type-b);
+}
+
 & a:link,
 a:visited,
 a:hover,

@@ -1,44 +1,100 @@
 @use "@style/vars.scss" as *;
 
 .maze {
-  & canvas {
-    margin: 20px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: $measure * 5;
+
+  & .maze--form {
+    padding: 0 $measure * 2;
+
+    & h4 {
+      margin-top: $measure * 2;
+      text-align: left;
+    }
+
+    & input,
+    button,
+    select {
+      width: 100%;
+      padding: $measure;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+    }
+
+    & button {
+      margin-top: $measure * 2;
+      margin-bottom: $measure * 3;
+    }
   }
 
-  
+  & canvas {
+    margin: 20px;
+    border: $measure solid getColor(h, "light");
+    border-radius: $border-radius-a;
+  }
+
+
   & h3 {
     width: 100%;
   }
+}
 
-  & div {
-    align-items: center;
-  }
-
-  & input {
-    padding: $measure * 2;
-    border: none;
-    border-radius: $border-radius-a;
-    cursor: pointer;
-  }
-
-  & select {
-    padding: $measure * 2;
-    border: none;
-    cursor: pointer;
-    border-radius: $border-radius-a;
-    margin-left: $measure;
-    margin-right: $measure;
-  }
+div#btn-container {
+  display: grid;
+  width: 50%;
+  aspect-ratio: 2/1;
+  margin-left: auto;
+  margin-right: auto;
+  place-items: center center;
+  row-gap: 0;
+  column-gap: 0;
 
   & button {
-    padding: $measure * 2 $measure * 4;
-    border: none;
-    border-radius: $border-radius-a;
-    cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+button#left {
+  & div {
+    transform: rotate(90deg);
   }
 
-  & button:active {
-    transform: scale(.94);
+  width: 100%;
+  height: 100%;
+  grid-row-start: 2;
+  grid-column-start: 1;
+}
+
+button#up {
+  & div {
+    transform: rotate(-180deg);
   }
 
+  width: 100%;
+  height: 100%;
+  grid-row-start: 1;
+  grid-column-start: 2;
+}
+
+button#down {
+  width: 100%;
+  height: 100%;
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+
+button#right {
+  & div {
+    transform: rotate(-90deg);
+  }
+
+  width: 100%;
+  height: 100%;
+  grid-row-start: 2;
+  grid-column-start: 3;
 }

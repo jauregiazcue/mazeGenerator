@@ -10,41 +10,73 @@ function Maze() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { width } = useWindowDimensions();
 
-  const size = width > 600 ? 600 : width;
-  function OnGenPress() {
+  const size = width > 600 ? 600 : width - 100;
+  function getCTX() {
     if (canvasRef != null
       && canvasRef.current != null) {
-
-      const ctx =
-        canvasRef.current.getContext("2d") as
+      return canvasRef.current.getContext("2d") as
         CanvasRenderingContext2D;
-
-      if (maze.size < 10) { maze.errorDraw(ctx); return; }
-      maze.init();
-      maze.draw(ctx);
     }
+    return null;
+  }
+  function OnGenPress() {
+    const ctx = getCTX();
+    if (!ctx) return;
+
+    if (maze.size < 10) { maze.errorDraw(ctx); return; }
+    maze.init();
+    maze.draw(ctx);
+
   }
 
   function OnSizeChange(event: React.ChangeEvent<HTMLInputElement>) {
     maze.handleSizeInputChange(event)
   }
 
-  const body: React.ReactNode = <>
-    <input type="number"
-      id="width"
-      name="width" defaultValue="10" min="10" max="1000" onChange={OnSizeChange} />
-    <select id="mazeGenType">
-      <option value="a">Aldous Broder</option>
-      <option value="b">Aldous 2</option>
-    </select>
-    <button
-      onClick={OnGenPress}>
-      Generate</button>
-  </>
+  function OnStepXChange(add: number) {
+    const ctx = getCTX();
+    if (!ctx) return;
+    maze.handleStepXInputChange(add, ctx);
+  }
 
-  return <section className = "maze">
+  function OnStepYChange(add: number) {
+    const ctx = getCTX();
+    if (!ctx) return;
+    maze.handleStepYInputChange(add, ctx);
+  }
+
+  const body: React.ReactNode = <div className="maze--form">
+    <div>
+
+      <h4>Generation Algorithm:</h4>
+      <select id="mazeGenType">
+        <option value="a">Aldous Broder</option>
+        <option value="b">Aldous 2</option>
+      </select>
+
+      <h4>Size:</h4>
+      <input type="number"
+        id="width" name="width"
+        defaultValue="10" min="10" max="1000"
+        onChange={OnSizeChange} />
+
+      <button
+        onClick={OnGenPress}>
+        Generate</button>
+      <h3>Movement</h3>
+
+      <div id="btn-container">
+        <button onClick={() => { OnStepYChange(-1) }} id="up"><div>{"V"}</div></button>
+        <button onClick={() => { OnStepYChange(1) }} id="down"><div>{"V"}</div></button>
+        <button onClick={() => { OnStepXChange(-1) }} id="left"><div>{"V"}</div></button>
+        <button onClick={() => { OnStepXChange(1) }} id="right"><div>{"V"}</div></button>
+      </div>
+    </div>
+  </div>
+
+  return <section className="maze">
     <Canvas width={size} height={size}
-    ref={canvasRef} init={maze.firstDraw} />
+      ref={canvasRef} init={maze.firstDraw} />
     <Card type={CardType.sizelessInHeight} head={<h3>Maze Generation Settings</h3>} body={body} />
   </section >
 }
