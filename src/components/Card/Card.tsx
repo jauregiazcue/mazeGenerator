@@ -7,7 +7,7 @@ import "./Card.scss";
 const CardType = {
   simple: 0,
   sizelessInHeight: 1,
-  sizeless:2
+  sizeless:2,
 }
 
 type CardType = (typeof CardType)[keyof typeof CardType];

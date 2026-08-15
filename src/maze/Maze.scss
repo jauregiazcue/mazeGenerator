@@ -8,6 +8,36 @@
   flex-wrap: wrap;
   padding-bottom: $measure * 5;
 
+  & .card,
+  .card-a,
+  .card-b {
+    margin: $measure;
+    overflow-wrap: break-word;
+  }
+
+  & .card {
+    max-height: none;
+    min-width: 25%;
+    width: fit-content;
+    height: auto;
+
+    max-width: 90%;
+
+    &--body {
+      height: auto;
+    }
+  }
+
+  & .maze--json {
+    width: 100%;
+
+    & button {
+      width: 100%;
+      padding: $measure;
+      margin-top: $measure * 2;
+    }
+  }
+
   & .maze--form {
     padding: 0 $measure * 2;
 

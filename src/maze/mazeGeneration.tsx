@@ -43,6 +43,8 @@ class Maze {
     size = size <= 0 ? 10 : size;
 
     this.maze = aldousBroderMaze(size, size);
+    this.getJSON();
+    //this.jsonString = JSON.stringify(this.maze);
   }
 
   firstDraw(ctx: CanvasRenderingContext2D) {
@@ -87,7 +89,6 @@ class Maze {
 
     if (this.maze.length <= 0) return;
 
-    //const actualSize = this.size % 2 == 0 ? this.size + 1 : this.size;
     const rectangleSize = 11;
     const rectWidth = (width / rectangleSize);
     const rectHeight = (width / rectangleSize);
@@ -96,8 +97,10 @@ class Maze {
 
     const startX = rectangleSize * (this.stepX);
     const startY = rectangleSize * (this.stepY);
+
     let endX = rectangleSize * (this.stepX + 1);
     if (endX >= this.maze.length) endX = this.maze.length;
+
     let endY = rectangleSize * (this.stepY + 1);
     if (endY >= this.maze.length) endY = this.maze.length;
 
@@ -146,10 +149,27 @@ class Maze {
     this.draw(ctx);
   }
 
+  getJSON() {
+    let jsonAuxString = "{\n";
+    jsonAuxString += '"maze": [\n';
+    for (let y = 0; y < this.maze.length; y++) {
+      jsonAuxString += '[';
+      for (let x = 0; x < this.maze[y].length; x++) {
+        jsonAuxString += x + 1 < this.maze[y].length ?
+          this.maze[y][x].toString() + "," :
+          this.maze[y][x].toString();
+      }
+      jsonAuxString += y + 1 < this.maze.length ? "],\n" : "]";
+    }
+    jsonAuxString += "]\n}";
+    this.jsonString = jsonAuxString;
+  }
+
   stepX: number = 0;
   stepY: number = 0;
   size: number = 10;
   maze: number[][] = [];
+  jsonString: string = "";
 }
 
 export const maze: Maze = new Maze();
