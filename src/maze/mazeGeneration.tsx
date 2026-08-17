@@ -1,35 +1,14 @@
-import { aldousBroderMaze } from "./aldous-broder";
-
-const cellType = {
-  aLeft: 0,
-  aDown: 1,
-  aUp: 2,
-  aRight: 3,
-  active: 4,
-  debug: 5,
-  inactive: 6,
-}
-type cellType = (typeof cellType)[keyof typeof cellType];
-
-interface position {
-  xStart: number,
-  yStart: number,
-}
-
-interface cell {
-  position: position,
-  cellType: cellType,
-  hasBeenSet: boolean,
-  cellColor: string,
-}
-
-export interface Grid {
-  list: cell[],
-  cellSize: number,
-  rows: number,
-  cols: number,
-  drawnPieces: number,
-}
+import { aldousBroderMaze } from "./mazeUtils/aldous-broder";
+import { backtrackingMaze } from "./mazeUtils/backtracking";
+import { binaryTreeMaze } from "./mazeUtils/binary-tree";
+import { ellersMaze } from "./mazeUtils/ellers";
+import { huntAndKillMaze } from "./mazeUtils/hunt-and-kill";
+import { kruskalsMaze } from "./mazeUtils/kruskals";
+import { GenType } from "./mazeUtils/mType";
+import { primsMaze } from "./mazeUtils/prims";
+import { recursiveDivisionMaze } from "./mazeUtils/recursive-division";
+import { sidewinderMaze } from "./mazeUtils/sidewinder";
+import { wilsonsMaze } from "./mazeUtils/wilsons";
 
 
 class Maze {
@@ -37,14 +16,35 @@ class Maze {
     this.size = 10;
   }
 
-  init(size?: number) {
+  init(type: GenType, size?: number) {
     if (!size) size = this.size;
 
     size = size <= 0 ? 10 : size;
-
-    this.maze = aldousBroderMaze(size, size);
+    console.log("Hello ? ");
+    console.log("Type: " + type);
+    this.maze = this.genMaze(type, size, size);
     this.getJSON();
-    //this.jsonString = JSON.stringify(this.maze);
+  }
+
+  genMaze(type: GenType, width: number, height: number) {
+    // Make dimensions odd
+    width -= width % 2; width++;
+    height -= height % 2; height++;
+    console.log("Hi");
+    switch (type) {
+      case GenType.aldous: return aldousBroderMaze(width, height);
+      case GenType.backtracking: return backtrackingMaze(width, height);
+      case GenType.binaryTree: return binaryTreeMaze(width, height);
+      case GenType.ellers: return ellersMaze(width, height);
+      case GenType.huntAndKill: return huntAndKillMaze(width, height);
+      case GenType.kruskals: return kruskalsMaze(width, height);
+      case GenType.prims: return primsMaze(width, height);
+      case GenType.recursiveDivision: return recursiveDivisionMaze(width, height);
+      case GenType.sideWider: return sidewinderMaze(width, height);
+      case GenType.wilsons: return wilsonsMaze(width, height);
+      default: return aldousBroderMaze(width, height);
+    }
+
   }
 
   firstDraw(ctx: CanvasRenderingContext2D) {
@@ -103,9 +103,6 @@ class Maze {
 
     let endY = rectangleSize * (this.stepY + 1);
     if (endY >= this.maze.length) endY = this.maze.length;
-
-    console.log("X Start: " + startX + " X End: " + endX);
-    console.log("Y Start: " + startY + " Y End: " + endY);
 
     let fakeX = 0;
     let fakeY = 0;
@@ -172,4 +169,4 @@ class Maze {
   jsonString: string = "";
 }
 
-export const maze: Maze = new Maze();
+export const maze = new Maze();

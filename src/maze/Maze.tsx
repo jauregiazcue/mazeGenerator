@@ -1,14 +1,18 @@
 import Canvas from "@/components/Canvas/Canvas";
 
-import { useEffect, useRef, useState } from "react";
-import { maze } from "./mazeGeneration";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
+
 import useWindowDimensions from "@/tools/WindowsDimension";
 import "./Maze.scss";
 import Card, { CardType } from "@/components/Card/Card";
+import { maze } from "./mazeGeneration";
+import { GenType } from "./mazeUtils/mType";
 
 function Maze() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [json, setJSON] = useState("The Json file will be displayed here");
+
+  const [mazeType, setMazeType] = useState(GenType.aldous);
   const { width } = useWindowDimensions();
 
   const size = width > 600 ? 600 : width - 100;
@@ -25,18 +29,29 @@ function Maze() {
     if (!ctx) return;
 
     if (maze.size < 10) { maze.errorDraw(ctx); return; }
-    maze.init();
+    console.log(mazeType);
+    maze.init(mazeType);
     setJSON(maze.jsonString);
   }
 
   useEffect(() => {
     const ctx = getCTX();
     if (!ctx) return;
-    maze.draw(ctx);
+    if (maze.maze.length == 0) {
+      maze.firstDraw(ctx);
+    } else {
+      maze.draw(ctx);
+    }
+
   });
 
   function OnSizeChange(event: React.ChangeEvent<HTMLInputElement>) {
     maze.handleSizeInputChange(event)
+  }
+
+  function OnSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+    console.log(event.target.value);
+    setMazeType(Number(event.target.value) as GenType);
   }
 
   function OnStepXChange(add: number) {
@@ -55,9 +70,17 @@ function Maze() {
     <div>
 
       <h4>Generation Algorithm:</h4>
-      <select id="mazeGenType">
-        <option value="a">Aldous Broder</option>
-        <option value="b">Aldous 2</option>
+      <select id="mazeGenType" onChange={OnSelectChange}>
+        <option value="0">Aldous Broder</option>
+        {/* <option value="1">Backtracking</option> */}
+        <option value="2">Binary Tree</option>
+        <option value="3">Ellers</option>
+        {/* <option value="4">Hunt and Kill </option> */}
+        <option value="5">Kruskals </option>
+        {/* <option value="6">Prims </option> */}
+        <option value="7">Recursive Division </option>
+        <option value="8">Side Wider </option>
+        <option value="9">Wilsons </option>
       </select>
 
       <h4>Size:</h4>
@@ -85,6 +108,7 @@ function Maze() {
     <button onClick={() => { navigator.clipboard.writeText(json); }}>Save to clipboard</button></div>;
 
   return <section className="maze">
+
     <Canvas width={size} height={size}
       ref={canvasRef} init={maze.firstDraw} />
     <Card type={CardType.sizelessInHeight} head={<h3>Maze Generation Settings</h3>} body={body} />

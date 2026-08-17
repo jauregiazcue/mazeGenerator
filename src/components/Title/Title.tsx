@@ -19,7 +19,7 @@ interface TitlePayload extends PayloadWithChildren {
 }
 
 
-function Hero(payload: TitlePayload) {
+function Title(payload: TitlePayload) {
   const { title, id } = payload;
   let { type } = payload;
 
@@ -28,4 +28,4 @@ function Hero(payload: TitlePayload) {
   return <h1 id={id} className={type == TitleType.common ? "title" : "title-a"}>{title}</h1>;
 }
 
-export default Hero;
+export default Title;

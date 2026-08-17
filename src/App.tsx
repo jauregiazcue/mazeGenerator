@@ -2,6 +2,7 @@ import "@style/vars.scss";
 import { type LinkPayload, LinkType } from "@components/Links/Link";
 import Footer from "@/components/Footer/Footer";
 import Maze from "./maze/Maze";
+import Title, { TitleType } from "./components/Title/Title";
 
 
 
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <>
+    <Title type={TitleType.common}title={"Maze Generator"} />
       <Maze />
       <Footer id="contact"
         links={{ list: footerData, type: LinkType.simple }}

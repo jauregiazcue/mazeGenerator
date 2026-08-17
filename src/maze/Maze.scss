@@ -1,11 +1,13 @@
 @use "@style/vars.scss" as *;
 
 .maze {
-  width: 90%;
+  width: 70%;
   margin: auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding-top: 0;
+  margin-top: 0;
   padding-bottom: $measure * 5;
 
   & .card,
@@ -17,12 +19,8 @@
 
   & .card {
     max-height: none;
-    min-width: 25%;
-    width: fit-content;
+    width: 90%;
     height: auto;
-
-    max-width: 90%;
-
     &--body {
       height: auto;
     }
@@ -63,7 +61,8 @@
 
   & canvas {
     margin: 20px;
-    border: $measure solid getColor(h, "light");
+    
+    border: $measure * .25 solid getColor(d, "light");
     border-radius: $border-radius-a;
   }
 
