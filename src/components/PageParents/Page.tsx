@@ -28,7 +28,7 @@ function Page() {
     <>
       <ScrollRestoration />
       <Outlet />
-
+      <h2>This is a development page,<br></br> to check the actual release of it go to <a href="https://kaijauregi.com/#/maze" target="_blank">https://kaijauregi.com/#/maze</a></h2>
       <Footer id="contact"
         links={{ list: footerData, type: LinkType.simple }}
         owner={"Kai Jauregi Azcue"}
