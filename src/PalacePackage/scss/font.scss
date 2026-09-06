@@ -1,0 +1,48 @@
+@use "sass:map";
+@use "vars.scss" as *;
+@use "color.scss" as *;
+
+@mixin title($size : 32px,
+  $decoration: none,
+  $weight : 100,
+  $type : $type-a,
+  $light : a, $dark: a) {
+
+  font-size: $size;
+  font-family: $type;
+  @include fontColor($light, $dark);
+  text-align: center;
+}
+
+
+h1 {
+  @include title($size : clamp(2rem, 5vw, 4rem),
+    $light : c, $dark : c, $type : $type-b);
+}
+
+h2 {
+  @include title($size : clamp(1.5rem, 3vw, 2.5rem),
+    $light : b, $dark : a, $type : $type-b);
+}
+
+h3 {
+  @include title($size : 1.5rem,
+    $light : d, $dark : a, $type : $type-b);
+}
+
+& a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+.h1--big {
+  @include title($size : clamp($measure * 8, 10vw, $measure * 20),
+    $light : c, $dark : c);
+}
+
+.h2--big {
+  @include title($size : clamp($measure * 3, 3vw, $measure * 5),
+    $light : c, $dark : c);
+}

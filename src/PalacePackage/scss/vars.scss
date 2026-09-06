@@ -1,0 +1,126 @@
+@use "sass:map";
+
+/*
+    Foundations
+*/
+// * COLORS
+$color-a: #0f0f0f;
+$color-b: rgba(255, 255, 255, 0.87);
+$color-c: #f7f8f4;
+
+$color-d: #cac8b9;
+$color-d-dark: #1f1f1f;
+$color-e: #162936;
+$color-f: #1985A1;
+$color-g: rgb(255 255 255 / 30%);
+$color-g-dark: rgb(0 0 0 / 30%);
+$color-h: #FFA72B;
+
+
+
+$font-options: (
+    a: $color-a,
+    b: $color-c,
+    c: $color-h,
+    d: $color-e,
+);
+
+$font-options-dark: (
+    a: $color-c,
+    b: $color-a,
+    c: $color-h,
+    d: $color-e,
+);
+
+$color-options: (
+    a: $color-a,
+    b: $color-b,
+    c: $color-c,
+    d: $color-d,
+    e: $color-e,
+    f: $color-f,
+    g: $color-g,
+    h: $color-h,
+    i: transparent
+);
+
+$color-options-dark: (
+    a: $color-b,
+    b: $color-a,
+    c: $color-c,
+    d: $color-d-dark,
+    e: $color-e,
+    f: $color-f,
+    g: $color-g-dark,
+    h: $color-h,
+    i: transparent
+);
+
+
+@function getColor($color, $theme : "light") {
+    @if($theme =="light") {
+        @return map.get($color-options, $color);
+    }
+
+    @return map.get($color-options-dark, $color);
+}
+
+@function getFontColor($color, $theme : "light") {
+    @if($theme =="light") {
+        @return map.get($font-options, $color);
+    }
+
+    @return map.get($font-options-dark, $color);
+}
+
+
+// * TYPOGRAPHY
+$type-a: 'Arial', sans-serif;
+$type-b: 'Alexandria Variable', sans-serif;
+
+
+// * LAYOUT
+$viewport-type: max-width;
+$columns: 12;
+$gutter-width: 32px;
+$half-gutter-width: $gutter-width * 0.5;
+$gutter-compensation: -1 * $half-gutter-width;
+
+// * Container
+$g-container-fluid-max-width: 2000px;
+$g-container-max-width: 1300px;
+$g-container-width: 90%;
+$g-container-width-mobile: 95%;
+
+// * breakpoints
+$all: 0;
+$desktop: 1700px;
+$laptop: 1570px;
+$tabletl: 1300px;
+$tabletm: 1024px;
+$tablets: 810px;
+$mobile: 580px;
+
+$breakpoints-grid: (
+    all: $all,
+    desktop: $desktop,
+    laptop: $laptop,
+    tabletl: $tabletl,
+    tabletm: $tabletm,
+    tablets: $tablets,
+    mobile: $mobile,
+    ) !default;
+
+
+
+/*
+    End Foundations
+*/
+
+// * Measure
+$measure: 0.5rem;
+/* 0.5rem = 8px */
+
+// * border
+$border-radius-a: $measure * 5;
+$border-radius-b: $measure * 3;

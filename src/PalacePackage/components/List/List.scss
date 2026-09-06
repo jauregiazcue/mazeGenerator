@@ -1,0 +1,96 @@
+@use "@style/vars.scss" as *;
+@use "@style/media.scss" as *;
+@use "@style/color.scss" as *;
+
+.list {
+  margin: $measure;
+  border-radius: $border-radius-b;
+
+  @include mobile {
+    width: 100%;
+  }
+
+  & .card {
+    max-height: none;
+    width: 70vw;
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+
+  & li {
+    $borderSize : $measure * .5;
+    $paddingSize : $measure * 2;
+    $paddingCircle: -($borderSize + $measure * 1.2);
+
+    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    padding-left: $paddingSize;
+    padding-bottom: $measure * 2;
+
+    @include mobile {
+      width: 100%;
+      padding-left: 0;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: $paddingCircle;
+      top: 0;
+      display: inline-block;
+      color: transparent;
+      height: $measure * 2;
+      width: $measure * 2;
+      @include backgroundColor(e,b);
+
+      border-radius: 100%;
+      margin-top: $measure * 2.5;
+      border: $borderSize solid;
+      @include borderColor(h,h);
+
+      @include mobile {
+        display: none;
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: $paddingCircle * .25;
+      top: 0;
+      display: inline-block;
+      color: transparent;
+      height: 130%;
+
+      border: $borderSize * .5 solid;
+      @include borderColor(h,h);
+
+      @include mobile {
+        display: none;
+
+      }
+    }
+
+    &:first-child::before {
+      margin-top: $measure * 3;
+    }
+
+    &:last-child {
+      margin-right: 0;
+      flex-grow: 0;
+
+      &::before {
+        border: none;
+
+        body.dark-mode & {
+          border: none;
+        }
+      }
+    }
+  }
+}

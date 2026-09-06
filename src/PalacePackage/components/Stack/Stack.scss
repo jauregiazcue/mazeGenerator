@@ -1,0 +1,48 @@
+@use "@style/vars.scss" as *;
+@use "@style/media.scss" as *;
+@use "@style/color.scss" as *;
+
+@mixin stack() {
+  width: 100%;
+
+  &--body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+
+    &>* {
+      margin: $measure;
+    }
+
+    margin-top: 0;
+
+    @include mobile {
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  @include backgroundColor(e,b);
+  @include fontColor(a,a);
+  
+}
+
+.stack-a {
+  @include stack();
+
+  &--body {
+    width: 80%;
+    padding: $measure * 2;
+
+    @include mobile {
+      width: 100%;
+      padding: 0;
+    }
+  }
+}
+
+.stack-b {
+  @include stack();
+}

@@ -1,0 +1,180 @@
+@use "@style/vars.scss" as *;
+@use "@style/media.scss" as *;
+@use "@style/color.scss" as *;
+@use "@style/font.scss" as *;
+
+@mixin link() {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  & a {
+    width: max-content;
+    margin-right: $measure * 5;
+    transition: .7s;
+
+    & img {
+      width: $measure * 2;
+      height: $measure * 2;
+      border-radius: $border-radius-b;
+      object-fit: cover;
+    }
+
+    @include fontColor(a, a);
+
+    &:nth-last-child(1) {
+      margin-right: 0;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  & div {
+    transition: .7s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:nth-last-child(1) {
+      margin-left: $measure * 2;
+    }
+  }
+
+  & span {
+    margin-right: $measure;
+  }
+}
+
+
+.link {
+  @include link();
+}
+
+.link-a {
+  position: fixed;
+  top: 50%;
+  left: 1em;
+  transform: translate(0, -50%);
+
+  @include transparentBackground();
+  @include borderColor(i, b);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  z-index: 2;
+  text-align: center;
+
+  width: fit-content;
+  overflow: hidden;
+
+  & a {
+
+    width: fit-content;
+    min-width: 100%;
+    padding-top: $measure * 2;
+    padding-bottom: $measure * 2;
+    margin-right: $measure * 5;
+    transition: .7s;
+    @include fontColor(a, a);
+
+    &:hover {
+      transform: scale(1.1);
+      @include backgroundColor(g, g, true);
+      @include fontColor(b, b);
+
+      & .fa-solid {
+        @include fontColor(b, b);
+      }
+
+    }
+
+  }
+
+  @include mobile {
+    flex-direction: row;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    & a {
+      display: block;
+      width: fit-content;
+      min-width: 0;
+      padding: $measure;
+      padding-top: $measure;
+      padding-bottom: $measure;
+      margin-right: $measure * 2;
+
+      &:first-child {
+        padding-left: $measure * 2;
+      }
+    }
+  }
+}
+
+.link-b {
+  @include link();
+  width: 90%;
+  justify-content: space-between;
+
+  padding-bottom: $measure * 2;
+
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include title($size : 1.5rem, $light : a, $dark: b, $type : $type-b);
+  }
+}
+
+
+.link-c {
+  position: fixed;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  @include transparentBackground();
+  @include borderColor(i, b);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  z-index: 2;
+  text-align: center;
+
+  width: fit-content;
+  overflow: hidden;
+
+  & a {
+    display: block;
+    width: fit-content;
+    min-width: 0;
+    padding: $measure;
+    padding-top: $measure;
+    padding-bottom: $measure;
+    margin-right: $measure * 2;
+    transition: .7s;
+    @include fontColor(a, a);
+
+    &:first-child {
+      padding-left: $measure * 2;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      @include backgroundColor(g, g, true);
+      @include fontColor(b, b);
+
+      & .fa-solid {
+        @include fontColor(b, b);
+      }
+    }
+  }
+}

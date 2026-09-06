@@ -1,0 +1,14 @@
+@use "@style/vars.scss" as *;
+@use "@style/color.scss" as *;
+
+.title {
+  text-align: center;
+  padding: $measure * 8;
+  @include backgroundColor(e, b);
+}
+
+.title-a {
+  text-align: center;
+  padding: $measure * 8;
+  @include backgroundColor(e, b);
+}
