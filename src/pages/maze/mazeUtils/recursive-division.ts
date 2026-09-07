@@ -1,27 +1,22 @@
-import { divide, getNumberFromBoolean, horv } from "./mUtils";
+import { divide, getNumberFromBoolean, horizontalOrVertical, openEntranceAndExit } from "./mUtils";
 
-export function recursiveDivisionMaze(width : number, height : number){
-    
-    // Make dimensions odd
-    
-    
-    const maze : number[][]=[];
-    
-    for (let i = 0; i < height; i++) {
+export function recursiveDivisionMaze(width: number, height: number) {
+    const maze: number[][] = [];
+
+    for (let row = 0; row < height; row++) {
         maze.push([]);
-        for (let j = 0; j < width; j++) {
-            maze[i].push(getNumberFromBoolean(i == 0 ||
-                          j == 0 ||
-                          i == height - 1 ||
-                          j == width - 1));
+        for (let column = 0; column < width; column++) {
+            maze[row].push(getNumberFromBoolean(row == 0 ||
+                column == 0 ||
+                row == height - 1 ||
+                column == width - 1));
         }
     }
     
-    divide(maze, [1, height - 2], [1, width - 2], horv(1, 1));
-    
-    maze[0][1] = 0;
-    maze[height - 1][width - 2] = 0;
-    
+    divide(maze, [1, height - 2], [1, width - 2], horizontalOrVertical(1, 1));
+
+    openEntranceAndExit(maze, width, height);
+
     return maze;
-    
+
 }

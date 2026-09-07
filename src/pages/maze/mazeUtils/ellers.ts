@@ -1,45 +1,38 @@
-import { indexOfSet } from "./mUtils";
+import { getRandomInteger, indexOfSet, openEntranceAndExit } from "./mUtils";
 
 export function ellersMaze(width: number, height: number) {
 
-    // Make dimensions odd
-    
-
-    // Initialize maze: each square is its own set
     const maze: number[][] = [];
-    for (let i = 0; i < height; i++) {
+    for (let row = 0; row < height; row++) {
         maze.push([]);
-        for (let j = 0; j < width; j++) {
-            maze[i].push(Number(!(i % 2 == 1 && j % 2 == 1)));
+        for (let column = 0; column < width; column++) {
+            maze[row].push(Number(!(row % 2 == 1 && column % 2 == 1)));
         }
     }
 
-    maze[0][1] = 0;
 
     const sets = [];
-    for (let i = 1; i < width; i += 2) {
-        sets.push([[1, i]]);
+    for (let row = 1; row < width; row += 2) {
+        sets.push([[1, row]]);
     }
 
-
-
-    for (let i = 1; i < height; i += 2) {
+    for (let row = 1; row < height; row += 2) {
 
         // Clear sets
         for (let m = 0; m < sets.length; m++) {
             for (let n = 0; n < sets[m].length; n++) {
-                if (sets[m][n][0] < i)
+                if (sets[m][n][0] < row)
                     sets[m].splice(n, 1);
             }
         }
 
-        for (let j = 3; j < width; j += 2) {
-            let set1 = indexOfSet(sets, [i, j - 2]);
-            const set2 = indexOfSet(sets, [i, j]);
+        for (let column = 3; column < width; column += 2) {
+            let set1 = indexOfSet(sets, [row, column - 2]);
+            const set2 = indexOfSet(sets, [row, column]);
             if (set1 != set2) {
 
-                const join = (i != height - 2) ?
-                    Math.floor(Math.random() * 2) :
+                const join = (row != height - 2) ?
+                    getRandomInteger(2) :
                     1;
 
                 if (join) {
@@ -49,31 +42,31 @@ export function ellersMaze(width: number, height: number) {
                     }
 
                     sets[set1] = sets[set1].concat(removed);
-                    maze[i][j - 1] = 0;
+                    maze[row][column - 1] = 0;
                 }
             }
         }
 
-        if (i == height - 2)
+        if (row == height - 2)
             break;
 
         const initialSetLength = sets.length;
-        for (let j = 0; j < initialSetLength; j++) {
+        for (let column = 0; column < initialSetLength; column++) {
             let continued = false;
 
-            const initialLength = sets[j].length;
+            const initialLength = sets[column].length;
             for (let k = 0; k < initialLength; k++) {
 
-                const newCoord = sets[j][k].slice();
+                const newCoord = sets[column][k].slice();
                 newCoord[0] += 2;
 
-                if (newCoord[0] != i + 2)
+                if (newCoord[0] != row + 2)
                     continue;
 
-                const add = Math.floor(Math.random() * 2);
+                const add = getRandomInteger(2);
                 if (add) {
                     continued = true;
-                    sets[j].push(newCoord);
+                    sets[column].push(newCoord);
                     maze[newCoord[0] - 1][newCoord[1]] = 0;
 
                 }
@@ -84,21 +77,21 @@ export function ellersMaze(width: number, height: number) {
             if (!continued) {
                 let ind;
                 do {
-                    ind = Math.floor(Math.random() * sets[j].length);
-                } while (sets[j][ind][0] != i);
-                const newC = sets[j][ind].slice();
+                    ind = getRandomInteger(sets[column].length);
+                } while (sets[column][ind][0] != row);
+                const newC = sets[column][ind].slice();
                 newC[0] += 2;
 
                 sets.splice(indexOfSet(sets, newC), 1);
 
-                sets[j].push(newC);
+                sets[column].push(newC);
                 maze[newC[0] - 1][newC[1]] = 0;
             }
         }
 
     }
 
-    maze[height - 1][width - 2] = 0;
+    openEntranceAndExit(maze, width, height);
 
     return maze;
 

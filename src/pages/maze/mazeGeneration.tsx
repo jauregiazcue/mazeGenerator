@@ -97,11 +97,14 @@ class Maze {
       for (let x = startX; x < endX; x++) {
         if (y > this.maze.length) return;
         if (x > this.maze[y].length) return;
+        if (this.maze[y][x] == 2) ctx.fillStyle = "#FFA72B";
+        else ctx.fillStyle = "#cac8b9";
         if (this.maze[y][x]) {
           ctx.fillRect(rectWidth * fakeY, rectHeight * fakeX,
             rectWidth, rectHeight);
         }
         else {
+
           ctx.clearRect(rectWidth * fakeY, rectHeight * fakeX,
             rectWidth, rectHeight);
         }
@@ -124,14 +127,14 @@ class Maze {
   handleStepXInputChange(add: number, ctx: CanvasRenderingContext2D) {
     this.stepX += add;
     if (this.stepX < 0) this.stepX = 0;
-    if(this.rectangleSize * (this.stepX) >= this.maze.length) this.stepX--;
+    if (this.rectangleSize * (this.stepX) >= this.maze.length) this.stepX--;
     this.draw(ctx);
   }
 
   handleStepYInputChange(add: number, ctx: CanvasRenderingContext2D) {
     this.stepY += add;
     if (this.stepY < 0) this.stepY = 0;
-    if(this.rectangleSize * (this.stepY) >= this.maze.length) this.stepY--;
+    if (this.rectangleSize * (this.stepY) >= this.maze.length) this.stepY--;
     this.draw(ctx);
   }
 

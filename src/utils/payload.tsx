@@ -24,17 +24,14 @@ export interface StudiesCardPayload {
 //--------------------------------------------------
 const MazeGenType = {
   aldous: 0,
-  backtracking: 1,
-  binaryTree: 2,
+  binaryTree: 1,
 
-  ellers: 3,
-  huntAndKill: 4,
-  kruskals: 5,
+  ellers: 2,
+  kruskals: 3,
 
-  prims: 6,
-  recursiveDivision: 7,
-  sideWider: 8,
-  wilsons: 9
+  recursiveDivision: 4,
+  sideWider: 5,
+  wilsons: 6
 }
 
 type MazeGenType = (typeof MazeGenType)[keyof typeof MazeGenType];
