@@ -1,11 +1,11 @@
 import { MazeGenType as GenType } from "@/utils/payload";
 import { aldousBroderMaze } from "./mazeUtils/aldous-broder";
 import { binaryTreeMaze } from "./mazeUtils/binary-tree";
-import { ellersMaze } from "./mazeUtils/ellers";
 import { kruskalsMaze } from "./mazeUtils/kruskals";
 import { recursiveDivisionMaze } from "./mazeUtils/recursive-division";
 import { sidewinderMaze } from "./mazeUtils/sidewinder";
 import { wilsonsMaze } from "./mazeUtils/wilsons";
+import { ellersMaze } from "./mazeUtils/ellers";
 
 
 class Maze {
